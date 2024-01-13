@@ -62,8 +62,9 @@
     <Compile Include="Assets\Codes\MouseEvents_Test.cs" />
     <Compile Include="Assets\Codes\Lecture_01.cs" />
     <Compile Include="Assets\Codes\AI_Bot.cs" />
-    <Compile Include="Assets\UI_Script.cs" />
+    <Compile Include="Assets\Cartoon Heroes\Scripts\SetCharacter\SetCharacter.cs" />
     <Compile Include="Assets\Codes\MovingCube.cs" />
+    <Compile Include="Assets\Codes\UI_Script.cs" />
     <Compile Include="Assets\Codes\CameraFollow.cs" />
     <Compile Include="Assets\Codes\CharacterMovement.cs" />
   </ItemGroup>

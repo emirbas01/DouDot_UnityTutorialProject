@@ -22,11 +22,16 @@ public class CharacterMovement : MonoBehaviour
 
     [SerializeField] Camera cam;
 
+    [Header("Animation")]
+
+    Animator animator;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
 
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        animator = transform.Find("BalaHatun").GetComponent<Animator>();
     }
     void Update()
     {
@@ -42,10 +47,12 @@ public class CharacterMovement : MonoBehaviour
         if(Input.GetKey(KeyCode.LeftShift))
         {
             speed += 0.1f;
+            animator.SetBool("Is Running", true);
         }
         else
         {
             speed -= 0.1f;
+            animator.SetBool("Is Running", false);
         }
         #endregion
 
@@ -65,7 +72,10 @@ public class CharacterMovement : MonoBehaviour
         float moveX = Input.GetAxis("Vertical");
         float moveY = Input.GetAxis("Horizontal");
 
-        moveDirection = new Vector3(moveX * movementSpeed * Time.deltaTime, 0, moveY * movementSpeed * Time.deltaTime);
+        animator.SetFloat("PosX", moveX);
+        animator.SetFloat("PosY", moveY);
+
+        moveDirection = new Vector3(moveY * movementSpeed * Time.deltaTime, 0, moveX * movementSpeed * Time.deltaTime);
         transform.position += moveDirection;
     }
     private void OnTriggerEnter(Collider col)

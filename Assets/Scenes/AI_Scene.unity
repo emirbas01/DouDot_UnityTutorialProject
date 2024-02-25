@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -415,9 +415,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   jumpPower: 5
+  health: 100
+  coin: 0
+  hasKey: 0
   moveDirection: {x: 0, y: 0, z: 0}
   cam: {fileID: 0}
-  canDegeri: 0
+  sequence_01: {fileID: 0}
 --- !u!1 &828787352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,6 +1197,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4039382777156044970, guid: 353b2a57f9a7d0b48af00c13bed51913, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 5811773714898526208, guid: 353b2a57f9a7d0b48af00c13bed51913, type: 3}
       propertyPath: m_LocalPosition.x
       value: 23.96

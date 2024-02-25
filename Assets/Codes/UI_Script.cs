@@ -16,9 +16,11 @@ public class UI_Script : MonoBehaviour
     public Toggle testToggle;
 
     public Button exitBtn;
+
     void Start()
     {
         exitBtn.onClick.AddListener(ExitGame);
+        
     }
     void Update()
     {

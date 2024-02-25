@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.Playables;
 public class CharacterMovement : MonoBehaviour
 {
     [Header("Karakter özellikleri")]
@@ -25,6 +25,7 @@ public class CharacterMovement : MonoBehaviour
     [Header("Animation")]
 
     Animator animator;
+    [SerializeField] PlayableDirector sequence_01;
 
     void Start()
     {
@@ -33,6 +34,10 @@ public class CharacterMovement : MonoBehaviour
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         animator = transform.Find("BalaHatun").GetComponent<Animator>();
     }
+    private void FixedUpdate()
+    {
+        
+    }
     void Update()
     {
         #region MOVEMENT_PART
@@ -40,21 +45,13 @@ public class CharacterMovement : MonoBehaviour
 
         speed = Mathf.Clamp(speed, 15f, 30f);
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.AddForce(transform.up * jumpPower, ForceMode.Impulse);
-        }
-        if(Input.GetKey(KeyCode.LeftShift))
-        {
-            speed += 0.1f;
-            animator.SetBool("Is Running", true);
-        }
-        else
-        {
-            speed -= 0.1f;
-            animator.SetBool("Is Running", false);
-        }
+        if (Input.GetKeyDown(KeyCode.Space))
+            Jump();
+
+        CheckRunning();
         #endregion
+
+        #region OTHER
 
         health = Mathf.Clamp(health, 0, 100);
 
@@ -66,6 +63,8 @@ public class CharacterMovement : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
+        #endregion
     }
     void Movement(float movementSpeed)
     {
@@ -77,6 +76,24 @@ public class CharacterMovement : MonoBehaviour
 
         moveDirection = new Vector3(moveY * movementSpeed * Time.deltaTime, 0, moveX * movementSpeed * Time.deltaTime);
         transform.position += moveDirection;
+        rb.AddForce(Vector3.forward * speed * Time.deltaTime);
+    }
+    public void Jump()
+    {
+        rb.AddForce(transform.up * jumpPower, ForceMode.Impulse);
+    }
+    void CheckRunning()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            speed += 0.1f;
+            animator.SetBool("Is Running", true);
+        }
+        else
+        {
+            speed -= 0.1f;
+            animator.SetBool("Is Running", false);
+        }
     }
     private void OnTriggerEnter(Collider col)
     {
@@ -90,12 +107,17 @@ public class CharacterMovement : MonoBehaviour
         if (col.CompareTag("Coin"))
         {
             coin++;
-            Destroy(col.gameObject);
+           
+            GameObject.Find("SPAWNER").GetComponent<OptimizationTip>().totalCoinCount--;
         }
         if (col.CompareTag("Key"))
         {
             hasKey = true;
             Destroy(col.gameObject);
+        }
+        if(col.name == "TimelineTrigger")
+        {
+            sequence_01.Play();
         }
     }
     private void OnTriggerExit(Collider col)

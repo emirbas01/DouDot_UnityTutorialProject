@@ -6,7 +6,7 @@ public class PlayerProperties : MonoBehaviour
 {
     public float health = 100;
 
-    [SerializeField] int coin = 0;
+    public int coin = 0;
 
     [SerializeField] bool hasKey = false;
     void Start()
